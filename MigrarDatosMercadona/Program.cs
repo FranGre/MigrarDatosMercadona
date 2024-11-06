@@ -22,6 +22,7 @@ namespace MigrarDatosMercadona
 
             var migracion = new Migracion();
             migracion.InsertarDatos(clientes);
+            // el problema es que se me cierra
         }
     }
 }
