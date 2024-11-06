@@ -1,6 +1,7 @@
 ﻿using MigracionDatos.Modelos;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ namespace MigracionDatos
 {
     internal class Csv
     {
-        private const string SEPARATOR = ",";
+        private const char SEPARATOR = ',';
         private const int INDEX = 0;
         private const int CUSTOMER_ID = 1;
         private const int FIRST_NAME = 2;
@@ -48,7 +49,7 @@ namespace MigracionDatos
 
                 var lineaSplit = linea.Split(SEPARATOR);
 
-                writer.WriteLine(string.Join(SEPARATOR,
+                writer.WriteLine(string.Join(SEPARATOR.ToString(),
                     new string[] {
                     lineaSplit[INDEX],
                     Guid.NewGuid().ToString(),
