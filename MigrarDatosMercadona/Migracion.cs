@@ -13,7 +13,7 @@ namespace MigracionDatos
     {
         private AppDbContexto db = new AppDbContexto();
 
-        public void InsertarDatos(List<Customer> customers)
+        public void InsertarDatosSaveChangesDentroDelBucle(List<Customer> customers)
         {
             if (customers == null || customers.Count == 0)
             {
@@ -27,9 +27,48 @@ namespace MigracionDatos
                 db.Customers.Add(customer);
                 db.SaveChanges();
             }
+
             stopwatch.Stop();
             Consola.EscribirExito($"Ha tardado {stopwatch.Elapsed.TotalMilliseconds}ms");
+            Console.ReadKey();
+        }
 
+        public void InsertarDatosSaveChangesFueraDelBucle(List<Customer> customers)
+        {
+            if (customers == null || customers.Count == 0)
+            {
+                Consola.EscribirError("Customers vacios");
+                return;
+            }
+
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            foreach (var customer in customers)
+            {
+                db.Customers.Add(customer);
+            }
+            db.SaveChanges();
+
+            stopwatch.Stop();
+            Consola.EscribirExito($"Ha tardado {stopwatch.Elapsed.TotalMilliseconds}ms");
+            Console.ReadKey();
+        }
+
+        public void InsertarDatosConAddRange(List<Customer> customers)
+        {
+            if (customers == null || customers.Count == 0)
+            {
+                Consola.EscribirError("Customers vacios");
+                return;
+            }
+
+            Stopwatch stopwatch = Stopwatch.StartNew();
+
+            db.Customers.AddRange(customers);
+            db.SaveChanges();
+
+            stopwatch.Stop();
+            Consola.EscribirExito($"Ha tardado {stopwatch.Elapsed.TotalMilliseconds}ms");
+            Console.ReadKey();
         }
     }
 }
